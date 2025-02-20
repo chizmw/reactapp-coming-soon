@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { RRule, rrulestr } from 'rrule';
 
-const EventDashboard = () => {
+const EventDashboard = ({ filterTag = '' }) => {
   const [events, setEvents] = useState([]);
 
   useEffect(() => {
@@ -12,37 +12,42 @@ const EventDashboard = () => {
       .then((response) => response.json())
       .then((data) => {
         const now = new Date();
-        const eventsWithNextOccurrence = data.map((event) => {
-          if (event.rrule) {
-            console.info('Found rrule');
-            try {
-              const rule = rrulestr(`DTSTART:${event.start}\n${event.rrule}`);
-              const startDate = parseISO(event.start);
-              console.log(rule);
-              console.log(startDate);
+        const eventsWithNextOccurrence = data
+          .filter((event) => !filterTag || event.tags.includes(filterTag))
+          .map((event) => {
+            if (event.rrule) {
+              console.info('Found rrule');
+              try {
+                const rule = rrulestr(`DTSTART:${event.start}\n${event.rrule}`);
+                const startDate = parseISO(event.start);
+                console.log(rule);
+                console.log(startDate);
 
-              // Calculate the next occurrence after the current date
-              const nextOccurrence = rule.after(now, true);
-              console.info(nextOccurrence);
-              console.info(
-                `Event: ${event.summary}, Next Occurrence: ${new Date(
-                  nextOccurrence
-                ).toLocaleString()}`
-              );
+                // Calculate the next occurrence after the current date
+                const nextOccurrence = rule.after(now, true);
+                console.info(nextOccurrence);
+                console.info(
+                  `Event: ${event.summary}, Next Occurrence: ${new Date(
+                    nextOccurrence
+                  ).toLocaleString()}`
+                );
 
-              return { ...event, nextOccurrence: nextOccurrence || startDate };
-            } catch (error) {
-              console.error(
-                `Invalid recurrence rule for event: ${event.summary}`,
-                error
-              );
+                return {
+                  ...event,
+                  nextOccurrence: nextOccurrence || startDate,
+                };
+              } catch (error) {
+                console.error(
+                  `Invalid recurrence rule for event: ${event.summary}`,
+                  error
+                );
+                return { ...event, nextOccurrence: parseISO(event.start) };
+              }
+            } else {
+              // One-time event
               return { ...event, nextOccurrence: parseISO(event.start) };
             }
-          } else {
-            // One-time event
-            return { ...event, nextOccurrence: parseISO(event.start) };
-          }
-        });
+          });
 
         // Sort events by next occurrence
         const sortedEvents = eventsWithNextOccurrence.sort(
@@ -51,7 +56,7 @@ const EventDashboard = () => {
 
         setEvents(sortedEvents);
       });
-  }, []);
+  }, [filterTag]);
 
   const formatDate = (date) => {
     const options = { day: '2-digit', month: 'long', year: 'numeric' };
