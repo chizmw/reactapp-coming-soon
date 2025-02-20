@@ -1,7 +1,7 @@
 import EventDashboard from '../components/EventDashboard';
 
 export default function Home() {
-  const filterTag = ''; // Change this to filter by different tags
+  const filterTag = 'gaming'; // Change this to filter by different tags
 
   return (
     <div>

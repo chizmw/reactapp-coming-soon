@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 import { useState, useEffect } from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import { RRule, rrulestr } from 'rrule';
+import { rrulestr } from 'rrule';
 
 const EventDashboard = ({ filterTag = '' }) => {
   const [events, setEvents] = useState([]);
