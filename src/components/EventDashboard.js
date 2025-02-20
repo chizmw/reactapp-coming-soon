@@ -1,5 +1,7 @@
 'use client';
 
+import PropTypes from 'prop-types';
+
 import { useState, useEffect } from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
 import { RRule, rrulestr } from 'rrule';
@@ -79,6 +81,10 @@ const EventDashboard = ({ filterTag = '' }) => {
       ))}
     </div>
   );
+};
+
+EventDashboard.propTypes = {
+  filterTag: PropTypes.string,
 };
 
 export default EventDashboard;
