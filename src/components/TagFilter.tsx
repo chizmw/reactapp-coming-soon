@@ -1,7 +1,11 @@
-import PropTypes from 'prop-types';
+interface TagFilterProps {
+  allTags: string[];
+  onTagSelect: (tags: string[]) => void;
+  selectedTags: string[];
+}
 
-const TagFilter = ({ allTags, onTagSelect, selectedTags = [] }) => {
-  const handleTagChange = (tag) => {
+const TagFilter = ({ allTags, onTagSelect, selectedTags }: TagFilterProps) => {
+  const handleTagChange = (tag: string) => {
     const updatedTags = selectedTags.includes(tag)
       ? selectedTags.filter((t) => t !== tag)
       : [...selectedTags, tag];
@@ -22,12 +26,6 @@ const TagFilter = ({ allTags, onTagSelect, selectedTags = [] }) => {
       ))}
     </div>
   );
-};
-
-TagFilter.propTypes = {
-  allTags: PropTypes.arrayOf(PropTypes.string).isRequired,
-  onTagSelect: PropTypes.func.isRequired,
-  selectedTags: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default TagFilter;

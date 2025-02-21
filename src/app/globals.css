@@ -144,3 +144,8 @@ body h1 {
 .tag-label input {
   margin-right: 5px;
 }
+
+.tag-label:has(input:checked) {
+  background-color: blue;
+  color: white;
+}

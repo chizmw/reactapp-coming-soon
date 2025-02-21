@@ -8,6 +8,7 @@ import { EventItem } from '@/interfaces/Data';
 export default function Home() {
   const [loadedJsonData, setLoadedJsonData] = useState<EventItem[]>();
   const [allTags, setAllTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   // Fetch the JSON data
   useEffect(() => {
@@ -42,7 +43,8 @@ export default function Home() {
         <EventDashboard
           jsonData={loadedJsonData}
           knownTags={allTags}
-          selectedTags={[]}
+          selectedTags={selectedTags}
+          setSelectedTags={setSelectedTags}
         />
       ) : (
         <div>Loading...</div>

@@ -5,11 +5,13 @@ import { parseISO, formatDistanceToNow } from 'date-fns';
 import { rrulestr } from 'rrule';
 
 import { EventItem } from '@/interfaces/Data';
+import TagFilter from '@/components/TagFilter';
 
 interface EventDashboardProps {
   jsonData: EventItem[];
   knownTags: string[];
   selectedTags: string[];
+  setSelectedTags: (tags: string[]) => void;
 }
 
 const formatDate = (date: Date) => {
@@ -54,6 +56,7 @@ const EventDashboard = ({
   jsonData,
   knownTags,
   selectedTags,
+  setSelectedTags,
 }: EventDashboardProps) => {
   const [boardEvents, setBoardEvents] = useState<EventItem[]>([]);
 
@@ -77,6 +80,11 @@ const EventDashboard = ({
   console.info(knownTags);
   return (
     <div>
+      <TagFilter
+        allTags={knownTags}
+        onTagSelect={setSelectedTags}
+        selectedTags={selectedTags}
+      />
       <div className="event-dashboard">
         {boardEvents.map((event, index) => (
           <div key={event.guid} className="event-tile">
