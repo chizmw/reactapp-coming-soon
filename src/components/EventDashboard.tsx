@@ -74,7 +74,7 @@ const EventDashboard = ({
     const sortedEvents = sortEvents(eventsWithNextOccurrence);
 
     setBoardEvents(sortedEvents);
-  }, [jsonData, knownTags]);
+  }, [jsonData, knownTags, selectedTags]);
 
   console.info(jsonData);
   console.info(knownTags);
