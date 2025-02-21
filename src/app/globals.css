@@ -55,7 +55,12 @@ body {
   position: relative;
   z-index: 1; /* Ensure text is above the image */
   margin-top: 50%; /* Push content below the image */
-  background: rgba(0, 0, 0, 0.8); /* Optional: Add a background for better readability */
+  background: rgba(
+    0,
+    0,
+    0,
+    0.8
+  ); /* Optional: Add a background for better readability */
   padding: 16px;
   border-radius: 8px;
 }
@@ -67,18 +72,27 @@ body h1 {
   margin: 10px 0; /* Add margin for spacing */
   text-align: center; /* Center the text */
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle text shadow */
-  background: rgba(255, 255, 255, 0.9); /* Optional: Add a background for contrast */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.9
+  ); /* Optional: Add a background for contrast */
   padding: 5px 10px; /* Optional: Add padding for better spacing */
   border-radius: 8px; /* Optional: Add rounded corners */
 }
-
 
 .event-tile h2 {
   font-size: 1.2em; /* Increase the font size */
   color: #333; /* Darker text color for better contrast */
   font-weight: bold; /* Make the text bold */
   margin: 5px 0; /* Add some margin for spacing */
-  background: rgba(255, 255, 255, 0.8); /* Optional: Add a background for better readability */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.8
+  ); /* Optional: Add a background for better readability */
   padding: 3px 5px; /* Optional: Add padding for better spacing */
   border-radius: 4px; /* Optional: Add rounded corners */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle text shadow */
@@ -94,14 +108,39 @@ body h1 {
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle text shadow */
 }
 
-
 .event-tile h4 {
   font-size: 0.8em; /* Increase the font size */
   color: #333; /* Darker text color for better contrast */
   font-weight: bold; /* Make the text bold */
   margin: 5px 0; /* Add some margin for spacing */
-  background: rgba(255, 255, 255, 0.5); /* Optional: Add a background for better readability */
+  background: rgba(
+    255,
+    255,
+    255,
+    0.5
+  ); /* Optional: Add a background for better readability */
   padding: 3px 5px; /* Optional: Add padding for better spacing */
   border-radius: 4px; /* Optional: Add rounded corners */
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle text shadow */
+}
+
+.tag-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.tag-label {
+  background-color: #171717;
+  color: #ff0000;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 2px 8px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.tag-label input {
+  margin-right: 5px;
 }

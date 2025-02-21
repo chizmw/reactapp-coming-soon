@@ -2,15 +2,17 @@
 
 import { useState, useEffect } from 'react';
 import { formatDistanceToNow, parseISO } from 'date-fns';
-import { RRule } from 'rrule';
+import { rrulestr } from 'rrule';
 import PropTypes from 'prop-types';
+
+import TagFilter from '../components/TagFilter';
 
 const formatDate = (date) => {
   const options = { day: '2-digit', month: 'long', year: 'numeric' };
   return date.toLocaleDateString(undefined, options);
 };
 
-const EventDashboard = ({ selectedTags = [] }) => {
+const EventDashboard = ({ selectedTags, onTagSelect = [] }) => {
   const [events, setEvents] = useState([]);
   const [fetchedData, setFetchedData] = useState([]);
   const [allTags, setAllTags] = useState([]);
@@ -31,7 +33,7 @@ const EventDashboard = ({ selectedTags = [] }) => {
   useEffect(() => {
     if (fetchedData.length > 0) {
       const tagsSet = new Set(fetchedData.flatMap((event) => event.tags || []));
-      setAllTags(Array.from(tagsSet));
+      setAllTags(Array.from(tagsSet).sort());
     }
   }, [fetchedData]);
 
@@ -47,12 +49,11 @@ const EventDashboard = ({ selectedTags = [] }) => {
             : true
         )
         .map((event) => {
-          if (event.recurrence) {
+          if (event.rrule) {
             try {
-              const ruleString = event.recurrence.trim();
-              const rule = new RRule(ruleString);
+              const ruleString = event.rrule.trim();
+              const rule = rrulestr(`DTSTART:${event.start}\n${ruleString}`);
               const startDate = parseISO(event.start);
-              rule.options = { dtstart: startDate, tzid: event.timezone };
 
               const nextOccurrence = rule.after(now, true);
               const nextOccurrenceDate = nextOccurrence || startDate;
@@ -80,25 +81,33 @@ const EventDashboard = ({ selectedTags = [] }) => {
   }, [fetchedData, allTags]);
 
   return (
-    <div className="event-dashboard">
-      {events.map((event, index) => (
-        <div key={event.summary} className="event-tile">
-          <img src={event.image} alt={event.summary} />
-          <div className="content">
-            <h2>{event.summary}</h2>
-            <h3>{formatDate(event.nextOccurrence)}</h3>
-            <h3>
-              {formatDistanceToNow(event.nextOccurrence, { addSuffix: true })}
-            </h3>
+    <>
+      <TagFilter
+        allTags={allTags}
+        onTagSelect={onTagSelect}
+        selectedTags={selectedTags}
+      />
+      <div className="event-dashboard">
+        {events.map((event, index) => (
+          <div key={event.summary} className="event-tile">
+            <img src={event.image} alt={event.summary} />
+            <div className="content">
+              <h2>{event.summary}</h2>
+              <h3>{formatDate(event.nextOccurrence)}</h3>
+              <h3>
+                {formatDistanceToNow(event.nextOccurrence, { addSuffix: true })}
+              </h3>
+            </div>
           </div>
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 };
 
 EventDashboard.propTypes = {
-  selectedTags: PropTypes.arrayOf(PropTypes.string),
+  selectedTags: PropTypes.arrayOf(PropTypes.string).isRequired,
+  onTagSelect: PropTypes.func.isRequired,
 };
 
 export default EventDashboard;

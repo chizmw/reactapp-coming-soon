@@ -1,12 +1,18 @@
+'use client';
+
 import EventDashboard from '../components/EventDashboard';
+import { useState } from 'react';
 
 export default function Home() {
-  const filterTag = 'gaming'; // Change this to filter by different tags
+  const [selectedTags, setSelectedTags] = useState([]);
 
   return (
     <div>
       <h1>Coming Soon</h1>
-      <EventDashboard filterTag={filterTag} />
+      <EventDashboard
+        selectedTags={selectedTags}
+        onTagSelect={setSelectedTags}
+      />
     </div>
   );
 }
