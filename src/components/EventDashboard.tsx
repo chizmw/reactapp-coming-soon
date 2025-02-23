@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { parseISO, formatDistanceToNow } from 'date-fns';
+import { parseISO, formatDistanceToNow, isToday } from 'date-fns';
 import { rrulestr } from 'rrule';
 
 import { EventItem } from '@/interfaces/Data';
@@ -111,7 +111,11 @@ const EventDashboard = ({
               <h2>{event.summary}</h2>
               <h3>{formatDate(event.nextOccurrence)}</h3>
               <h3>
-                {formatDistanceToNow(event.nextOccurrence, { addSuffix: true })}
+                {isToday(event.nextOccurrence)
+                  ? 'Today'
+                  : formatDistanceToNow(event.nextOccurrence, {
+                      addSuffix: true,
+                    })}
               </h3>
             </div>
           </div>
