@@ -160,3 +160,10 @@ body h1 {
   background-color: #000000;
   border-radius: 4px;
 }
+
+.error-message {
+  color: red;
+  font-size: 1.2em;
+  text-align: center;
+  margin-top: 20px;
+}
