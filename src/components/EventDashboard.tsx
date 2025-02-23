@@ -123,7 +123,9 @@ const EventDashboard = ({
                     })}
               </h3>
               {event.rule && (
-                <Repeat className="repeat-icon" title={event.rule.toText()} />
+                <span title={event.rule.toText()}>
+                  <Repeat className="repeat-icon" />
+                </span>
               )}
             </div>
           </div>
