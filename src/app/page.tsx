@@ -6,12 +6,17 @@ import EventDashboard from '@/components/EventDashboard';
 import { EventItem } from '@/interfaces/Data';
 
 export default function Home() {
+  const [selectedTags, setSelectedTags] = useState<string[]>(() => {
+    // Check if the code is running in the browser
+    if (typeof window !== 'undefined') {
+      const savedTags = localStorage.getItem('selectedTags');
+      return savedTags ? JSON.parse(savedTags) : [];
+    }
+    return [];
+  });
+
   const [loadedJsonData, setLoadedJsonData] = useState<EventItem[]>();
   const [allTags, setAllTags] = useState<string[]>([]);
-  const [selectedTags, setSelectedTags] = useState<string[]>(() => {
-    const savedTags = localStorage.getItem('selectedTags');
-    return savedTags ? JSON.parse(savedTags) : [];
-  });
   const [error, setError] = useState<string | null>(null);
   const [pageTitle, setPageTitle] = useState<string>('Coming Soon');
 
