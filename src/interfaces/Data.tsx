@@ -1,3 +1,5 @@
+import { RRule } from 'rrule';
+
 export interface EventItem {
   guid: string;
   summary: string;
@@ -6,4 +8,5 @@ export interface EventItem {
   tags: string[];
   image: string;
   nextOccurrence: Date;
+  rule: RRule;
 }

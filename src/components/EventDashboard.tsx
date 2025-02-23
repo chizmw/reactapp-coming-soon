@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { parseISO, formatDistanceToNow, isToday } from 'date-fns';
 import { rrulestr } from 'rrule';
+import { Repeat } from '@mui/icons-material';
 
 import { EventItem } from '@/interfaces/Data';
 import TagFilter from '@/components/TagFilter';
@@ -31,7 +32,7 @@ function prepareEvent(event: EventItem) {
       const startDate = parseISO(event.start);
       const nextOccurrence = rule.after(startOfToday(), true);
       const nextOccurrenceDate = nextOccurrence || startDate;
-      return { ...event, nextOccurrence: nextOccurrenceDate };
+      return { ...event, nextOccurrence: nextOccurrenceDate, rule: rule };
     } catch (error) {
       console.error(
         `Invalid recurrence rule for event: ${event.summary}`,
@@ -117,6 +118,9 @@ const EventDashboard = ({
                       addSuffix: true,
                     })}
               </h3>
+              {event.rule && (
+                <Repeat className="repeat-icon" title={event.rule.toText()} />
+              )}
             </div>
           </div>
         ))}
