@@ -24,13 +24,12 @@ const formatDate = (date: Date) => {
 };
 
 function prepareEvent(event: EventItem) {
-  const now = new Date();
   if (event.rrule) {
     try {
       const ruleString = event.rrule.trim();
       const rule = rrulestr(`DTSTART:${event.start}\n${ruleString}`);
       const startDate = parseISO(event.start);
-      const nextOccurrence = rule.after(now, true);
+      const nextOccurrence = rule.after(startOfToday(), true);
       const nextOccurrenceDate = nextOccurrence || startDate;
       return { ...event, nextOccurrence: nextOccurrenceDate };
     } catch (error) {
@@ -44,6 +43,23 @@ function prepareEvent(event: EventItem) {
     const nextOccurrenceDate = parseISO(event.start);
     return { ...event, nextOccurrence: nextOccurrenceDate };
   }
+}
+
+function startOfToday() {
+  const now = new Date();
+  const startOfToday = new Date(
+    now.getFullYear(),
+    now.getMonth(),
+    now.getDate()
+  );
+  return startOfToday;
+}
+
+function removePastEvents(events: EventItem[]) {
+  // we still want to show today's events even if they happened earlier the
+  // same day we're viewing
+  const today = startOfToday();
+  return events.filter((event) => event.nextOccurrence >= today);
 }
 
 function sortEvents(events: EventItem[]) {
@@ -71,7 +87,9 @@ const EventDashboard = ({
       return prepareEvent(event);
     });
 
-    const sortedEvents = sortEvents(eventsWithNextOccurrence);
+    const futureEvents = removePastEvents(eventsWithNextOccurrence);
+
+    const sortedEvents = sortEvents(futureEvents);
 
     setBoardEvents(sortedEvents);
   }, [jsonData, knownTags, selectedTags]);
