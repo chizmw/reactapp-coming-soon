@@ -42,3 +42,4 @@ next-env.d.ts
 
 public/events.json
 public/chisel-events.json
+.eslintcache
