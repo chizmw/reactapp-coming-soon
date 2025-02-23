@@ -90,3 +90,9 @@ repos:
     rev: v2.12.1b3
     hooks:
       - id: hadolint
+
+  - repo: https://github.com/pre-commit/mirrors-eslint
+    rev: v9.21.0
+    hooks:
+      - id: eslint
+        args: [--cache --config, eslint.config.mjs, src/]
