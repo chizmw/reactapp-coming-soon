@@ -16,6 +16,7 @@ export default function Home() {
   const [pageTitle, setPageTitle] = useState<string>('Coming Soon');
 
   // Fetch the JSON data
+  /*
   useEffect(() => {
     fetch('/events.json')
       .then((response) => {
@@ -36,6 +37,41 @@ export default function Home() {
         setPageTitle('Error');
         setError('Failed to load events. Please try again later.');
       });
+  }, []);
+  */
+  useEffect(() => {
+    const loadEvents = async (url: string) => {
+      try {
+        const response = await fetch(url);
+        if (!response.ok) {
+          throw new Error('Failed to fetch events: ' + response.statusText);
+        }
+        const data = await response.json();
+        // Add 'guid' property to each event
+        data.forEach((event: EventItem) => {
+          event.guid = crypto.randomUUID();
+        });
+        console.log('Loaded events from', url);
+        setLoadedJsonData(data);
+      } catch (error) {
+        console.error('Error fetching events from', url, ':', error);
+        throw error;
+      }
+    };
+
+    loadEvents('/events.json').catch(() => {
+      // Fallback to example-events.json if the initial fetch fails
+      loadEvents('/example-events.json')
+        .then(() => {
+          // make it obvious that we're using sample data
+          setPageTitle('Sample Data');
+          // make sure we aren't hiding events due to (previous) tag filter
+          setSelectedTags([]);
+        })
+        .catch(() => {
+          setError('Failed to load events. Please try again later.');
+        });
+    });
   }, []);
 
   // Extract unique tags

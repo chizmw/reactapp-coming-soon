@@ -1,0 +1,47 @@
+[
+  {
+    "summary": "Funny Bones",
+    "timezone": "Europe/London",
+    "start": "20250226T130000Z",
+    "tags": ["show", "comedy"],
+    "image": "/images/comedy.png"
+  },
+  {
+    "summary": "Mind Bending",
+    "timezone": "Europe/London",
+    "start": "20260226T130000Z",
+    "tags": ["show", "comedy"],
+    "image": "/images/magic.png"
+  },
+  {
+    "summary": "Chisel's Birthday",
+    "timezone": "Europe/London",
+    "start": "19741002T000000Z",
+    "tags": ["birthday"],
+    "image": "/images/birthday.png",
+    "rrule": "FREQ=YEARLY;BYMONTH=10;BYMONTHDAY=2"
+  },
+  {
+    "summary": "Go Somewhere Nice",
+    "timezone": "Europe/London",
+    "start": "20240101T000000Z",
+    "tags": ["away", "vacation"],
+    "image": "/images/away.png",
+    "rrule": "FREQ=YEARLY;BYMONTH=04;BYMONTHDAY=11"
+  },
+  {
+    "summary": "One Off Trip",
+    "timezone": "Europe/London",
+    "start": "20261001T000000Z",
+    "tags": ["away", "vacation"],
+    "image": "https://loveincorporated.blob.core.windows.net/contentimages/main/flight-to-holiday.jpg"
+  },
+  {
+    "summary": "Annual Extravaganza",
+    "timezone": "Europe/London",
+    "start": "20240101T000000Z",
+    "tags": ["show"],
+    "image": "/images/magic.png",
+    "rrule": "FREQ=YEARLY;BYMONTH=12;BYMONTHDAY=25"
+  }
+]
