@@ -95,6 +95,10 @@ const EventDashboard = ({
     setBoardEvents(sortedEvents);
   }, [jsonData, knownTags, selectedTags]);
 
+  useEffect(() => {
+    localStorage.setItem('selectedTags', JSON.stringify(selectedTags));
+  }, [selectedTags]);
+
   console.info(jsonData);
   console.info(knownTags);
   return (

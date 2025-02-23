@@ -8,7 +8,10 @@ import { EventItem } from '@/interfaces/Data';
 export default function Home() {
   const [loadedJsonData, setLoadedJsonData] = useState<EventItem[]>();
   const [allTags, setAllTags] = useState<string[]>([]);
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>(() => {
+    const savedTags = localStorage.getItem('selectedTags');
+    return savedTags ? JSON.parse(savedTags) : [];
+  });
 
   // Fetch the JSON data
   useEffect(() => {
