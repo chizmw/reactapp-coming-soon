@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import EventDashboard from '@/components/EventDashboard';
 import { EventItem } from '@/interfaces/Data';

@@ -1,6 +1,7 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { parseISO, formatDistanceToNow, isToday } from 'date-fns';
 import { rrulestr } from 'rrule';
 import { Repeat } from '@mui/icons-material';
@@ -112,6 +113,12 @@ const EventDashboard = ({
         {boardEvents.map((event) => (
           <div key={event.guid} className="event-tile">
             <img src={event.image} alt={event.summary} />
+            <Image
+              src={event.image}
+              alt={event.summary}
+              width={300}
+              height={300}
+            />
             <div className="content">
               <h2>{event.summary}</h2>
               <h3>{formatDate(event.nextOccurrence)}</h3>

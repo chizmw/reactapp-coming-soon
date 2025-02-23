@@ -1,3 +1,5 @@
+import React from 'react';
+
 interface TagFilterProps {
   allTags: string[];
   onTagSelect: (tags: string[]) => void;
