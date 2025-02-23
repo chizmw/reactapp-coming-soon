@@ -34,7 +34,7 @@
     "timezone": "Europe/London",
     "start": "20261001T000000Z",
     "tags": ["away", "vacation"],
-    "image": "https://loveincorporated.blob.core.windows.net/contentimages/main/flight-to-holiday.jpg"
+    "image": "/images/away.png"
   },
   {
     "summary": "Annual Extravaganza",
