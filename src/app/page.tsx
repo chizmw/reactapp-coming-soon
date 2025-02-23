@@ -16,29 +16,6 @@ export default function Home() {
   const [pageTitle, setPageTitle] = useState<string>('Coming Soon');
 
   // Fetch the JSON data
-  /*
-  useEffect(() => {
-    fetch('/events.json')
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Failed to fetch events: ' + response.statusText);
-        }
-        return response.json();
-      })
-      .then((data) => {
-        // Add 'guid' property to each event
-        data.forEach((event: EventItem) => {
-          event.guid = crypto.randomUUID();
-        });
-        setLoadedJsonData(data);
-      })
-      .catch((error) => {
-        console.error('Caught: Error fetching events:', error);
-        setPageTitle('Error');
-        setError('Failed to load events. Please try again later.');
-      });
-  }, []);
-  */
   useEffect(() => {
     const loadEvents = async (url: string) => {
       try {
