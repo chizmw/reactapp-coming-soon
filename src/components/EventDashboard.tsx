@@ -100,8 +100,6 @@ const EventDashboard = ({
     localStorage.setItem('selectedTags', JSON.stringify(selectedTags));
   }, [selectedTags]);
 
-  console.info(jsonData);
-  console.info(knownTags);
   return (
     <div>
       <TagFilter
