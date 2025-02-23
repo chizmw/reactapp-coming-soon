@@ -110,7 +110,6 @@ const EventDashboard = ({
       <div className="event-dashboard">
         {boardEvents.map((event) => (
           <div key={event.guid} className="event-tile">
-            <img src={event.image} alt={event.summary} />
             <Image
               src={event.image}
               alt={event.summary}
